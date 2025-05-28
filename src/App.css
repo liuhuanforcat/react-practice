@@ -1,0 +1,2 @@
+@import './reset.less';
+@content-height: 'calc(100vh - 210px)';
