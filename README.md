@@ -1,54 +1,27 @@
-# React + TypeScript + Vite
+# react-practice
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+一个面向开发者的实战型代码仓库，展示常见业务场景下的设计模式实现和架构最佳实践。
 
-Currently, two official plugins are available:
+## 项目简介
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+本项目基于 React 19 + Vite + Ant Design 5，涵盖了多种常见的前端业务场景和设计模式实现，包括但不限于：
 
-## Expanding the ESLint configuration
+- 策略模式
+- 观察者模式
+- 懒加载
+- 长列表优化
+- 大文件上传
+- 地图集成（高德地图）
+- 本地存储（IndexedDB）
+- 路由权限控制
+- 响应式布局与主题
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 目录结构
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 快速开始
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. 安装依赖
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+   ```sh
+   npm install  npm run dev  npm run build  npm run preview
+   ```
