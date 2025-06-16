@@ -69,7 +69,7 @@ const routes: CustomRouteObject[] = [
         path: 'big-file',
         element: React.createElement(BigFile),
         meta: {
-          title: '大文件上传',
+          title: 'web投屏',
           icon: React.createElement(WomanOutlined),
         },
       },
