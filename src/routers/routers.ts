@@ -10,6 +10,7 @@ import NodeLoad from '../pages/nodeLoad';
 import Observer from '../pages/observer';
 import Strategy from '../pages/strategy';
 import Map from '../pages/map';
+import Simplepeer from '../pages/simplePeer';
 import React from 'react';
 import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined } from '@ant-design/icons';
 
@@ -110,6 +111,14 @@ const routes: CustomRouteObject[] = [
         element: React.createElement(Map),
         meta: {
           title: '地图',
+          icon: React.createElement(SendOutlined),
+        },
+      },
+      {
+        path: '/simplePeer',
+        element: React.createElement(Simplepeer),
+        meta: {
+          title: 'simplePeer浏览器投屏',
           icon: React.createElement(SendOutlined),
         },
       },

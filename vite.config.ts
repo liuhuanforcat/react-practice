@@ -10,6 +10,19 @@ export default defineConfig({
   resolve: {
     alias: {
       "@/*": "src/*",
+      stream: 'stream-browserify',
     },
+  },
+  server: {
+    proxy: {
+      '/device': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\//, ''),
+      },
+    },
+  },
+  define: {
+    global: 'window', // 让 simple-peer 依赖的 randombytes 能找到 global
   },
 })

@@ -1,120 +1,55 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Spin, Alert } from 'antd';
 import type { TableProps } from 'antd';
+import { useRequest } from 'ahooks';
+import { fetchDeviceList } from '../bigFile/service'; // 导入 fetchDeviceList
 
-interface DataType {
-  key: string;
+// 定义设备数据类型，与 service.ts 中的 DeviceType 保持一致
+interface DeviceType {
+  id: string;
   name: string;
-  age: number;
-  tel: string;
-  phone: number;
-  address: string;
+  ip: string;
+  // 根据实际接口返回的设备数据结构定义更多字段
 }
 
-// In the fifth row, other columns are merged into first column
-// by setting it's colSpan to be 0
-const sharedOnCell = (_: DataType, index?: number) => {
-  if (index === 1) {
-    return { colSpan: 0 };
+const DeviceListPage: React.FC = () => {
+  // 使用 useRequest 调用 fetchDeviceList 函数获取设备列表
+  const { data, error, loading } = useRequest<DeviceType[], []>(fetchDeviceList);
+
+  // 定义 Table 的列
+  const columns: TableProps<DeviceType>['columns'] = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: '设备名称',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'IP 地址',
+      dataIndex: 'ip',
+      key: 'ip',
+    },
+    // 您可以根据实际的设备数据结构添加更多列
+  ];
+
+  if (loading) {
+    return <Spin tip="正在加载投屏设备列表..."></Spin>;
   }
 
-  return {};
+  if (error) {
+    return <Alert message="加载投屏设备失败" description={error.message} type="error" showIcon />;
+  }
+
+  return (
+    <div>
+      <h1>投屏设备列表</h1>
+      <Table<DeviceType> columns={columns} dataSource={data} rowKey="id" bordered />
+    </div>
+  );
 };
 
-const columns: TableProps<DataType>['columns'] = [
-  {
-    title: 'RowHead',
-    dataIndex: 'key',
-    rowScope: 'row',
-  },
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    render: (text) => <a>{text}</a>,
-    onCell: (_, index) => ({
-      colSpan: index === 1 ? 5 : 1,
-    }),
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    onCell: sharedOnCell,
-  },
-  {
-    title: 'Home phone',
-    colSpan: 2,
-    dataIndex: 'tel',
-    onCell: (_, index) => {
-      if (index === 3) {
-        return { rowSpan: 2 };
-      }
-      // These two are merged into above cell
-      if (index === 4) {
-        return { rowSpan: 0 };
-      }
-      if (index === 1) {
-        return { colSpan: 0 };
-      }
-
-      return {};
-    },
-  },
-  {
-    title: 'Phone',
-    colSpan: 0,
-    dataIndex: 'phone',
-    onCell: sharedOnCell,
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    onCell: sharedOnCell,
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    tel: '0571-22098909',
-    phone: 18889898989,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    tel: '0571-22098333',
-    phone: 18889898888,
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    tel: '0575-22098909',
-    phone: 18900010002,
-    address: 'Sydney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Jim Red',
-    age: 18,
-    tel: '0575-22098909',
-    phone: 18900010002,
-    address: 'London No. 2 Lake Park',
-  },
-  {
-    key: '5',
-    name: 'Jake White',
-    age: 18,
-    tel: '0575-22098909',
-    phone: 18900010002,
-    address: 'Dublin No. 2 Lake Park',
-  },
-];
-
-const index: React.FC = () => <Table<DataType> columns={columns} dataSource={data} bordered />;
-
-export default index;
+export default DeviceListPage;

@@ -1,13 +1,42 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './index.module.less';
+import { useRequest } from 'ahooks';
+import { fetchDeviceList } from './service'; // 导入 fetchDeviceList
+
+// 定义设备数据类型，与 service.ts 中的 DeviceType 保持一致
+interface DeviceType {
+  id: string;
+  name: string;
+  ip: string;
+  // 根据实际接口返回的设备数据结构定义更多字段
+}
 
 function index() {
   const [isSharing, setIsSharing] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [roomId, setRoomId] = useState('');
-  const [deviceList, setDeviceList] = useState<string[]>([]);
   const [selectedDevice, setSelectedDevice] = useState('');
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // 使用 useRequest 调用 fetchDeviceList 函数获取设备列表
+  const { data: devices, error, loading } = useRequest<DeviceType[], []>(fetchDeviceList);
+
+  // 当设备列表数据加载完成后，更新 deviceList 状态，并可以选择第一个设备作为默认选中项
+  useEffect(() => {
+    if (devices && devices.length > 0) {
+      if (!selectedDevice) {
+        setSelectedDevice(devices[0].id); // 假设 id 是唯一的标识符
+      }
+    }
+  }, [devices, selectedDevice]);
+
+  if (loading) {
+    return <div className={styles.loadingContainer}><p>正在加载设备列表...</p></div>;
+  }
+
+  if (error) {
+    return <div className={styles.errorContainer}><p>加载设备列表失败: {error.message}</p></div>;
+  }
 
   return (
     <div className={styles.container}>
@@ -33,8 +62,8 @@ function index() {
                 className={styles.deviceSelect}
               >
                 <option value="">选择设备</option>
-                {deviceList.map(device => (
-                  <option key={device} value={device}>{device}</option>
+                {devices?.map(device => (
+                  <option key={device.id} value={device.id}>{device.name} ({device.ip})</option>
                 ))}
               </select>
               <button className={styles.connectBtn}>
