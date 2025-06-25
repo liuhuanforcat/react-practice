@@ -14,14 +14,11 @@ const ScreenShareDemo: React.FC = () => {
   const [peerId, setPeerId] = useState('');
   const peerRef = useRef<Peer | null>(null);
   const callRef = useRef<MediaConnection | null>(null);
-
-  // const SimplePeer = Peer.default || Peer;
-
-  // console.log('SimplePeer:', SimplePeer); // 应该是 function
+  const screenStreamRef = useRef<MediaStream | null>(null); // 保存房主采集到的流
 
   // 创建 Peer
-  const createPeer = async (id?: string) => {
-    const peer = id ? new Peer(id, { host: 'localhost', port: 9000, path: '/' }) : new Peer({ host: 'localhost', port: 9000, path: '/' });
+  const createPeer = (id?: string) => {
+    const peer = id ? new Peer(id, { host: SIGNAL_SERVER_URL, port: 9000, path: '/' }) : new Peer({ host: SIGNAL_SERVER_URL, port: 9000, path: '/' });
     peer.on('open', (id) => {
       setPeerId(id);
       setJoined(true);
@@ -31,45 +28,46 @@ const ScreenShareDemo: React.FC = () => {
       alert('PeerJS 错误: ' + err);
     });
     peerRef.current = peer;
-
-    // 采集屏幕流
-    const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
-    // 等待观众 call
-    peer.on('call', (call) => {
-      console.log('收到观众 call，推送流:', stream);
-      console.log('推送流的视频轨道:', stream.getVideoTracks());
-      console.log('推送流的音频轨道:', stream.getAudioTracks());
-      call.answer(stream); // 把屏幕流推给观众
-    });
-
     return peer;
   };
 
   // 创建房间（发起者）
   const handleCreate = async () => {
     if (!roomId) return;
-    const peer = await createPeer(roomId);
+    const peer = createPeer(roomId);
+    // 监听观众 call
+    peer.on('call', (call) => {
+      if (!screenStreamRef.current) {
+        alert('请先点击"开始投屏"采集屏幕流');
+        return;
+      }
+      console.log('收到观众 call，推送流:', screenStreamRef.current);
+      console.log('推送流的视频轨道:', screenStreamRef.current.getVideoTracks());
+      console.log('推送流的音频轨道:', screenStreamRef.current.getAudioTracks());
+      call.answer(screenStreamRef.current); // 推送屏幕流
+    });
   };
 
   // 加入房间（接收者）
   const handleJoin = async () => {
     if (!roomId) return;
-    const peer = await createPeer(); // 自动分配 id
+    const peer = createPeer(); // 自动分配 id
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    // stream.getTracks().forEach(track => stream.removeTrack(track)); // 清空轨道
+    // const emptyStream = new MediaStream(); // 没有任何轨道
 
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(emptyStream => {
-      const call = peer.call(roomId, emptyStream);
-      if (!call) {
-        alert('房主未在线或房间号错误');
-        return;
+    const call = peer.call(roomId, stream);
+    if (!call) {
+      alert('房主未在线或房间号错误');
+      return;
+    }
+    call.on('stream', (remoteStream) => {
+      if (remoteVideoRef.current) {
+        remoteVideoRef.current.srcObject = remoteStream;
+        console.log('✅ 已获取到远端流:', remoteStream);
+        console.log('视频轨道:', remoteStream.getVideoTracks());
+        console.log('音频轨道:', remoteStream.getAudioTracks());
       }
-      call.on('stream', (remoteStream) => {
-        if (remoteVideoRef.current) {
-          remoteVideoRef.current.srcObject = remoteStream;
-          console.log('✅ 已获取到远端流:', remoteStream);
-          console.log('视频轨道:', remoteStream.getVideoTracks());
-          console.log('音频轨道:', remoteStream.getAudioTracks());
-        }
-      });
     });
   };
 
@@ -77,11 +75,12 @@ const ScreenShareDemo: React.FC = () => {
   const startScreenShare = async () => {
     try {
       const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+      screenStreamRef.current = stream;
       if (localVideoRef.current) {
         localVideoRef.current.srcObject = stream;
       }
-      // 发起者主动呼叫所有观众（需要知道观众的 peerId）
-      // 这里可以让观众输入房主 peerId 后主动 call
+      console.log('采集到的视频轨道:', stream.getVideoTracks());
+      console.log('采集到的音频轨道:', stream.getAudioTracks());
     } catch (err) {
       alert('获取屏幕流失败：' + (err as any).message);
     }
@@ -90,7 +89,7 @@ const ScreenShareDemo: React.FC = () => {
   // 发起者主动呼叫观众（可选，通常是观众 call 房主）
   const callPeer = async (targetId: string) => {
     if (!peerRef.current) return;
-    const stream = localVideoRef.current?.srcObject as MediaStream;
+    const stream = screenStreamRef.current;
     if (!stream) return alert('请先开始投屏');
     const call = peerRef.current.call(targetId, stream);
     call.on('stream', (remoteStream) => {
