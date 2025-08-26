@@ -10,9 +10,10 @@ import NodeLoad from '../pages/nodeLoad';
 import Observer from '../pages/observer';
 import Strategy from '../pages/strategy';
 import Map from '../pages/map';
-import Simplepeer from '../pages/simplePeer';
+import Simplepeer from '../pages/simPlePeer';
+import RemTest from '../pages/remTest';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -120,6 +121,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: 'simplePeer浏览器投屏',
           icon: React.createElement(SendOutlined),
+        },
+      },
+      {
+        path: '/rem-test',
+        element: React.createElement(RemTest),
+        meta: {
+          title: 'Rem适配测试',
+          icon: React.createElement(MobileOutlined),
         },
       },
     ],

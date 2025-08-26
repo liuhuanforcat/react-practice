@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import pxtorem from 'postcss-pxtorem'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,11 +19,25 @@ export default defineConfig({
       '/device': {
         target: 'http://localhost:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\//, ''),
+        rewrite: (path: string) => path.replace(/^\//, ''),
       },
     },
   },
   define: {
     global: 'window', // 让 simple-peer 依赖的 randombytes 能找到 global
+  },
+  css: {
+    postcss: {
+      plugins: [
+        pxtorem({
+          rootValue: 16,
+          propList: ['*'],
+          selectorBlackList: ['.ignore'],
+          minPixelValue: 1,
+          mediaQuery: false,
+          exclude: /node_modules/i,
+        }),
+      ],
+    },
   },
 })
