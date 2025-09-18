@@ -1,0 +1,396 @@
+.drawing-board-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+
+  .toolbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 15px;
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        font-size: 14px;
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+
+        &.btn-primary {
+          background: #4285f4;
+          color: white;
+
+          &:hover {
+            background: #3367d6;
+          }
+        }
+
+        &.btn-secondary {
+          background: #6c757d;
+          color: white;
+
+          &:hover {
+            background: #5a6268;
+          }
+
+          &:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+          }
+        }
+
+        &.btn-danger {
+          background: #ea4335;
+          color: white;
+
+          &:hover {
+            background: #d33b2c;
+          }
+
+          &:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+
+    .instructions {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        color: #666;
+        font-size: 14px;
+
+        li {
+          margin-bottom: 4px;
+          position: relative;
+          padding-left: 16px;
+
+          &:before {
+            content: '•';
+            color: #4285f4;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+          }
+        }
+      }
+
+      .scale-mode {
+        background: #f8f9fa;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        color: #666;
+        border-left: 3px solid #4285f4;
+      }
+    }
+  }
+
+  .drawing-board {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    margin: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    cursor: default;
+
+    .grid-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.5;
+      background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .snap-line {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1000;
+
+      &.snap-line-vertical {
+        width: 1px;
+        height: 100%;
+        background: #ff4081;
+        box-shadow: 0 0 4px rgba(255, 64, 129, 0.6);
+        animation: snapLineAppear 0.2s ease-out;
+      }
+
+      &.snap-line-horizontal {
+        height: 1px;
+        width: 100%;
+        background: #ff4081;
+        box-shadow: 0 0 4px rgba(255, 64, 129, 0.6);
+        animation: snapLineAppear 0.2s ease-out;
+      }
+    }
+
+    .draggable-item {
+      position: absolute;
+      border-radius: 8px;
+      cursor: move;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 2px solid transparent;
+      z-index: 10;
+
+      &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        z-index: 50;
+      }
+
+      &.selected {
+        border-color: #4285f4;
+        box-shadow: 
+          0 6px 20px rgba(0, 0, 0, 0.2),
+          0 0 0 2px rgba(66, 133, 244, 0.3);
+        z-index: 100;
+      }
+
+      &.dragging {
+        z-index: 1000 !important;
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        transition: none;
+      }
+
+      &.resizing {
+        z-index: 1000 !important;
+        transition: none;
+      }
+
+      .item-text {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+      }
+
+      .drag-handle {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 12px;
+        cursor: move;
+        padding: 2px;
+        border-radius: 2px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+          color: white;
+        }
+      }
+
+      .resize-handle {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: #4285f4;
+        border: 2px solid white;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: all 0.2s ease;
+        z-index: 101;
+
+        &:hover {
+          transform: scale(1.2);
+          box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+        }
+      }
+
+      &.selected .resize-handle {
+        opacity: 1;
+      }
+
+      .resize-handle-nw {
+        top: -6px;
+        left: -6px;
+        cursor: nw-resize;
+      }
+
+      .resize-handle-ne {
+        top: -6px;
+        right: -6px;
+        cursor: ne-resize;
+      }
+
+      .resize-handle-sw {
+        bottom: -6px;
+        left: -6px;
+        cursor: sw-resize;
+      }
+
+      .resize-handle-se {
+        bottom: -6px;
+        right: -6px;
+        cursor: se-resize;
+      }
+    }
+  }
+
+  .status-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    max-height: 150px;
+    overflow-y: auto;
+
+    h3 {
+      margin: 0 0 10px 0;
+      color: #333;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .status-item {
+      padding: 4px 8px;
+      margin: 2px 0;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #666;
+      font-family: 'Courier New', monospace;
+      transition: all 0.2s ease;
+
+      &.active {
+        background: rgba(66, 133, 244, 0.1);
+        color: #4285f4;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@keyframes snapLineAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// 拖拽和缩放时的全局样式
+.drawing-board.dragging {
+  cursor: grabbing;
+}
+
+.drawing-board.resizing {
+  cursor: nw-resize;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .drawing-board-container {
+    .toolbar {
+      padding: 15px;
+
+      .instructions {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+
+    .drawing-board {
+      margin: 10px;
+    }
+
+    .status-panel {
+      padding: 10px 15px;
+      font-size: 11px;
+    }
+  }
+}
+
+// 深色模式支持
+@media (prefers-color-scheme: dark) {
+  .drawing-board-container {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+
+    .toolbar {
+      background: rgba(45, 55, 72, 0.95);
+      color: #e2e8f0;
+
+      h2 {
+        color: #e2e8f0;
+      }
+    }
+
+    .drawing-board {
+      background: #1a202c;
+    }
+
+    .status-panel {
+      background: rgba(45, 55, 72, 0.95);
+      color: #e2e8f0;
+
+      h3 {
+        color: #e2e8f0;
+      }
+
+      .status-item {
+        color: #a0aec0;
+
+        &.active {
+          background: rgba(66, 133, 244, 0.2);
+          color: #90cdf4;
+        }
+      }
+    }
+  }
+}
