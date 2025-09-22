@@ -1,8 +1,9 @@
 .long-list-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  height: 100%;
+  background: white;
   padding: 20px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: auto;
 }
 
 /* 头部区域 */
@@ -234,7 +235,7 @@
 
   &.near-end {
     border: 2px solid #4299e1;
-    background: rgba(66, 153, 225, 0.05);
+    // background: rgba(66, 153, 225, 0.05);
     animation: pulse 2s infinite;
   }
 }
@@ -378,7 +379,7 @@
   justify-content: center;
   gap: 12px;
   padding: 30px;
-  color: white;
+  color: rgb(37, 21, 21);
   font-size: 1.1rem;
   font-weight: 500;
 }
@@ -387,7 +388,7 @@
   width: 24px;
   height: 24px;
   border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top: 3px solid white;
+  border-top: 3px solid pink;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -395,7 +396,7 @@
 .load-complete {
   text-align: center;
   padding: 30px;
-  color: white;
+  color: pink;
   font-size: 1.1rem;
   font-weight: 600;
   background: rgba(255, 255, 255, 0.1);
