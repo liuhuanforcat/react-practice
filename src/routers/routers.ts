@@ -12,8 +12,9 @@ import Strategy from '../pages/strategy';
 import Map from '../pages/map';
 import Simplepeer from '../pages/simplePeer';
 import DrawingBoard from '../pages/drawingBoard';
+import ErrorBoundaryTest from '../pages/errorBoundaryTest';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, BugOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -129,6 +130,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '画板',
           icon: React.createElement(SendOutlined),
+        },
+      },
+      {
+        path: 'error-boundary-test',
+        element: React.createElement(ErrorBoundaryTest),
+        meta: {
+          title: '错误边界测试',
+          icon: React.createElement(BugOutlined),
         },
       },
     ],
