@@ -1,0 +1,198 @@
+.react-fiber-container {
+  padding: 24px;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+
+  .ant-card {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+    
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    }
+  }
+
+  .ant-card-head-title {
+    font-weight: 600;
+  }
+
+  .ant-timeline {
+    margin-top: 16px;
+  }
+
+  .fiber-tree {
+    background: #fafafa;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid #e8e8e8;
+    max-height: 400px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+
+    .ant-tag {
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+    }
+  }
+
+  .code-block {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 20px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+
+    // 语法高亮颜色
+    .keyword {
+      color: #c678dd;
+    }
+
+    .string {
+      color: #98c379;
+    }
+
+    .comment {
+      color: #5c6370;
+      font-style: italic;
+    }
+
+    .function {
+      color: #61afef;
+    }
+
+    .number {
+      color: #d19a66;
+    }
+  }
+
+  .advantage-item {
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+    height: 100%;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #1890ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+    }
+
+    h4 {
+      margin-bottom: 12px;
+      color: #1890ff;
+    }
+
+    p {
+      color: rgba(0, 0, 0, 0.65);
+      margin-bottom: 0;
+    }
+  }
+
+  .ant-progress {
+    .ant-progress-bg {
+      transition: all 0.3s ease;
+    }
+  }
+
+  .ant-timeline-item {
+    .ant-timeline-item-content {
+      min-height: 60px;
+    }
+  }
+
+  .ant-alert {
+    border-radius: 8px;
+  }
+
+  .ant-divider {
+    margin: 20px 0;
+  }
+
+  // 响应式优化
+  @media (max-width: 768px) {
+    padding: 16px;
+
+    .ant-card {
+      margin-bottom: 16px;
+    }
+
+    .code-block {
+      font-size: 11px;
+      padding: 12px;
+    }
+
+    .fiber-tree {
+      max-height: 300px;
+      font-size: 12px;
+    }
+
+    .advantage-item {
+      margin-bottom: 12px;
+    }
+  }
+
+  // 滚动条美化
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+
+    &:hover {
+      background: #555;
+    }
+  }
+
+  // 动画效果
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ant-card {
+    animation: fadeIn 0.5s ease;
+  }
+
+  // Tag 样式优化
+  .ant-tag {
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 2px 8px;
+    margin: 2px;
+  }
+
+  // 按钮组样式
+  .ant-space {
+    flex-wrap: wrap;
+  }
+
+  // 进度条样式
+  .ant-progress-line {
+    .ant-progress-inner {
+      border-radius: 100px;
+    }
+  }
+}
+

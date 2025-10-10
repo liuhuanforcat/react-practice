@@ -13,9 +13,10 @@ import Map from '../pages/map';
 import Simplepeer from '../pages/simplePeer';
 import DrawingBoard from '../pages/drawingBoard';
 import ErrorBoundaryTest from '../pages/errorBoundaryTest';
+import ReactFiber from '../pages/reactFiber';
 import DataFlowExample from '../examples/DataFlowExample';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, BugOutlined, ShareAltOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, BugOutlined, ShareAltOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -139,6 +140,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '错误边界测试',
           icon: React.createElement(BugOutlined),
+        },
+      },
+      {
+        path: 'react-fiber',
+        element: React.createElement(ReactFiber),
+        meta: {
+          title: 'React Fiber架构',
+          icon: React.createElement(ThunderboltOutlined),
         },
       },
     ],
