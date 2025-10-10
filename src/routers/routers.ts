@@ -13,8 +13,9 @@ import Map from '../pages/map';
 import Simplepeer from '../pages/simplePeer';
 import DrawingBoard from '../pages/drawingBoard';
 import ErrorBoundaryTest from '../pages/errorBoundaryTest';
+import DataFlowExample from '../examples/DataFlowExample';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, BugOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, BugOutlined, ShareAltOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
