@@ -45,7 +45,7 @@ const ReactFiber: React.FC = () => {
   const [frameTime, setFrameTime] = useState(16); // 每帧时间（毫秒）
   const [workLoopCount, setWorkLoopCount] = useState(0);
   const [fiberTreeDepth, setFiberTreeDepth] = useState(3);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<any>(0);
 
   // 初始化任务列表
   useEffect(() => {

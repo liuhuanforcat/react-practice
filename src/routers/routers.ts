@@ -10,7 +10,7 @@ import NodeLoad from '../pages/nodeLoad';
 import Observer from '../pages/observer';
 import Strategy from '../pages/strategy';
 import Map from '../pages/map';
-import Simplepeer from '../pages/simplePeer';
+import Simplepeer from '../pages/simPlePeer';
 import DrawingBoard from '../pages/drawingBoard';
 import ErrorBoundaryTest from '../pages/errorBoundaryTest';
 import ReactFiber from '../pages/reactFiber';
