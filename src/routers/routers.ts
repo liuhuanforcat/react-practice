@@ -14,9 +14,10 @@ import Simplepeer from '../pages/simPlePeer';
 import DrawingBoard from '../pages/drawingBoard';
 import ErrorBoundaryTest from '../pages/errorBoundaryTest';
 import ReactFiber from '../pages/reactFiber';
+import MemoryLeakTest from '../pages/memoryLeak';
 import DataFlowExample from '../examples/DataFlowExample';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, BugOutlined, ShareAltOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, BugOutlined, ShareAltOutlined, ThunderboltOutlined, AlertOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -148,6 +149,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: 'React Fiber架构',
           icon: React.createElement(ThunderboltOutlined),
+        },
+      },
+      {
+        path: 'memory-leak-test',
+        element: React.createElement(MemoryLeakTest),
+        meta: {
+          title: '内存泄漏测试',
+          icon: React.createElement(AlertOutlined),
         },
       },
     ],
