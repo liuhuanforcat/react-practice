@@ -1,11 +1,16 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import viteCompression from 'vite-plugin-compression'
+import { buildStats } from './plugins/buildStats'
+// import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    
+    // 构建统计插件
+    buildStats(),
     
     // Gzip 压缩（兼容所有浏览器）
     viteCompression({
@@ -26,6 +31,15 @@ export default defineConfig({
       ext: '.br', // 生成 .br 文件
       deleteOriginFile: false,
     }),
+
+    // 只在生产构建时启用
+    // visualizer({
+    //   open: true,
+    //   filename: 'react-redis-test/stats.html', // 注意：匹配你的 outDir
+    //   gzipSize: true,
+    //   brotliSize: true,
+    //   template: 'treemap', // treemap 视图最直观
+    // }),
   ],
   build: {
     outDir: 'react-redis-test', // 默认是 'dist'，可修改为任意目录名
