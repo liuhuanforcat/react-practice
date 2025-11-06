@@ -19,32 +19,38 @@ export function buildStats(): Plugin {
       startTime = Date.now()
       console.log('\n🚀 开始构建...\n')
     },
-    buildEnd() {
-      const endTime = Date.now()
-      const buildTime = ((endTime - startTime) / 1000).toFixed(2)
-      
-      // 计算输出目录大小
-      const outputPath = path.resolve(process.cwd(), outDir)
-      
-      if (!fs.existsSync(outputPath)) {
-        console.log('❌ 输出目录不存在')
-        return
-      }
+    writeBundle() {
+      // writeBundle 在所有文件写入完成后调用，此时输出目录已存在
+      // 使用 setTimeout 确保压缩插件也完成工作
+      setTimeout(() => {
+        const endTime = Date.now()
+        const buildTime = ((endTime - startTime) / 1000).toFixed(2)
+        
+        // 计算输出目录大小
+        const outputPath = path.resolve(process.cwd(), outDir)
+        
+        if (!fs.existsSync(outputPath)) {
+          console.log(`❌ 输出目录不存在: ${outputPath}`)
+          console.log(`   当前工作目录: ${process.cwd()}`)
+          console.log(`   配置的输出目录: ${outDir}`)
+          return
+        }
 
-      const stats = calculateDirSize(outputPath)
-      
-      console.log('\n' + '='.repeat(60))
-      console.log('📦 构建统计')
-      console.log('='.repeat(60))
-      console.log(`⏱️  构建时间: ${buildTime}s`)
-      console.log(`📁 输出目录: ${outDir}`)
-      console.log('\n📊 文件大小统计:')
-      console.log(`  总大小: ${formatSize(stats.totalSize)}`)
-      console.log(`  文件数量: ${stats.fileCount}`)
-      console.log(`  压缩文件 (.gz): ${stats.gzipCount} 个 (${formatSize(stats.gzipSize)})`)
-      console.log(`  压缩文件 (.br): ${stats.brCount} 个 (${formatSize(stats.brSize)})`)
-      console.log(`  原始文件: ${stats.originalCount} 个 (${formatSize(stats.originalSize)})`)
-      console.log('='.repeat(60) + '\n')
+        const stats = calculateDirSize(outputPath)
+        
+        console.log('\n' + '='.repeat(60))
+        console.log('📦 构建统计')
+        console.log('='.repeat(60))
+        console.log(`⏱️  构建时间: ${buildTime}s`)
+        console.log(`📁 输出目录: ${outDir}`)
+        console.log('\n📊 文件大小统计:')
+        console.log(`  总大小: ${formatSize(stats.totalSize)}`)
+        console.log(`  文件数量: ${stats.fileCount}`)
+        console.log(`  压缩文件 (.gz): ${stats.gzipCount} 个 (${formatSize(stats.gzipSize)})`)
+        console.log(`  压缩文件 (.br): ${stats.brCount} 个 (${formatSize(stats.brSize)})`)
+        console.log(`  原始文件: ${stats.originalCount} 个 (${formatSize(stats.originalSize)})`)
+        console.log('='.repeat(60) + '\n')
+      }, 100) // 延迟 100ms 确保压缩插件完成
     },
   }
 }

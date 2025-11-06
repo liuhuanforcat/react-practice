@@ -12,7 +12,7 @@ export default defineConfig({
     // 构建统计插件
     buildStats(),
     
-    // Gzip 压缩（兼容所有浏览器）
+    // // Gzip 压缩（兼容所有浏览器）
     viteCompression({
       verbose: true, // 在控制台输出压缩结果
       disable: false, // 是否禁用
