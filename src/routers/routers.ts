@@ -12,8 +12,9 @@ import Strategy from '../pages/strategy';
 import Map from '../pages/map';
 import Simplepeer from '../pages/simPlePeer';
 import RemTest from '../pages/remTest';
+import EventPropagation from '../pages/eventPropagation';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -129,6 +130,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: 'Rem适配测试',
           icon: React.createElement(MobileOutlined),
+        },
+      },
+      {
+        path: '/event-propagation',
+        element: React.createElement(EventPropagation),
+        meta: {
+          title: '事件传播机制',
+          icon: React.createElement(ThunderboltOutlined),
         },
       },
     ],
