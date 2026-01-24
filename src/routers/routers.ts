@@ -12,8 +12,9 @@ import Strategy from '../pages/strategy';
 import Map from '../pages/map';
 import Simplepeer from '../pages/simPlePeer';
 import RemTest from '../pages/remTest';
+import SliderCaptchaPage from '../pages/sliderCaptcha';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, SafetyOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -129,6 +130,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: 'Rem适配测试',
           icon: React.createElement(MobileOutlined),
+        },
+      },
+      {
+        path: '/slider-captcha',
+        element: React.createElement(SliderCaptchaPage),
+        meta: {
+          title: '滑块验证码',
+          icon: React.createElement(SafetyOutlined),
         },
       },
     ],
