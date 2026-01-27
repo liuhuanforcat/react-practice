@@ -68,6 +68,20 @@
       border-radius: 8px;
     }
 
+    // 覆盖浏览器自动填充（autofill）的浅蓝色/浅黄色底色
+    .ant-input:-webkit-autofill,
+    .ant-input:-webkit-autofill:hover,
+    .ant-input:-webkit-autofill:focus,
+    .ant-input:-webkit-autofill:active,
+    .ant-input-affix-wrapper input:-webkit-autofill,
+    .ant-input-affix-wrapper input:-webkit-autofill:hover,
+    .ant-input-affix-wrapper input:-webkit-autofill:focus,
+    .ant-input-affix-wrapper input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+      box-shadow: 0 0 0 1000px #fff inset !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
     .login-submit-item {
       margin-bottom: 0;
       margin-top: 8px;
