@@ -1,108 +1,91 @@
-import React, { useEffect } from 'react';
-import { Button, Form, Input, Card, Typography } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, Input, Card, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-
-import './index.less';
 import { useNavigate } from 'react-router-dom';
 
-const { Title } = Typography;
+import './index.less';
 
+const { Title, Text } = Typography;
 
 const LoginPage: React.FC = () => {
   const [form] = Form.useForm();
-  const navigate = useNavigate(); // 获取路由跳转方法
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    // 添加键盘光效监听
-    const inputs = document.querySelectorAll('.tech-input input');
-    inputs.forEach(input => {
-      input.addEventListener('focus', () => {
-        input.parentElement?.classList.add('active');
-      });
-      input.addEventListener('blur', () => {
-        input.parentElement?.classList.remove('active');
-      });
-    });
-  }, []);
-
-  const onFinish = (values: any) => {
-    console.log('Received values:', values);
-    localStorage.setItem('token', 'your_token_here'); // 模拟登录成功，存储 token
-    navigate('/home');
-    // 这里添加登录逻辑
+  const onFinish = (values: { username: string; password: string }) => {
+    setLoading(true);
+    // 模拟登录请求
+    setTimeout(() => {
+      console.log('登录参数:', values);
+      localStorage.setItem('token', 'your_token_here');
+      message.success('登录成功');
+      setLoading(false);
+      navigate('/home');
+    }, 400);
   };
 
   return (
     <div className="login-container">
-
-      {/* 光效装饰元素 */}
-      <div className="tech-decoration">
-        <div className="circle circle-1"></div>
-        <div className="circle circle-2"></div>
-        <div className="line line-1"></div>
-        <div className="line line-2"></div>
-      </div>
-
-      {/* 登录卡片 */}
-      <Card className="login-card" hoverable>
-        <div className="card-header">
-          <Title level={3} className="tech-title">
-            <span className="tech-text">SYSTEM</span>
-            <span className="tech-highlight">LOGIN</span>
+      <Card className="login-card" bordered={false}>
+        <div className="login-card-header">
+          <Title level={3} className="login-title">
+            系统登录
           </Title>
-          <div className="tech-divider"></div>
+          <Text className="login-subtitle">
+            请输入您的账号与密码
+          </Text>
         </div>
 
         <Form
           form={form}
           name="login"
+          layout="vertical"
           onFinish={onFinish}
           className="login-form"
+          requiredMark={false}
         >
           <Form.Item
             name="username"
-            rules={[{ required: true, message: '请输入用户名!' }]}
+            label="用户名"
+            rules={[{ required: true, message: '请输入用户名' }]}
           >
-            <div className="tech-input">
-              <Input
-                prefix={<UserOutlined className="tech-icon" />}
-                placeholder="用户名"
-              />
-              <div className="input-bottom-line"></div>
-            </div>
+            <Input
+              prefix={<UserOutlined className="login-input-icon" />}
+              placeholder="请输入用户名"
+              size="large"
+              autoComplete="username"
+            />
           </Form.Item>
 
           <Form.Item
             name="password"
-            rules={[{ required: true, message: '请输入密码!' }]}
+            label="密码"
+            rules={[{ required: true, message: '请输入密码' }]}
           >
-            <div className="tech-input">
-              <Input
-                prefix={<LockOutlined className="tech-icon" />}
-                type="password"
-                placeholder="密码"
-              />
-              <div className="input-bottom-line"></div>
-            </div>
+            <Input.Password
+              prefix={<LockOutlined className="login-input-icon" />}
+              placeholder="请输入密码"
+              size="large"
+              autoComplete="current-password"
+            />
           </Form.Item>
 
-          <Form.Item>
+          <Form.Item className="login-submit-item">
             <Button
               type="primary"
               htmlType="submit"
-              className="tech-button"
+              size="large"
+              block
+              loading={loading}
+              className="login-submit-btn"
             >
               登 录
-              <span className="button-border button-border-top"></span>
-              <span className="button-border button-border-right"></span>
-              <span className="button-border button-border-bottom"></span>
-              <span className="button-border button-border-left"></span>
             </Button>
           </Form.Item>
         </Form>
 
-        <div className="tech-footer">
-          <span>© 2023 TECH FUTURE SYSTEM</span>
+        <div className="login-footer">
+          <Text type="secondary">© 2025 企业管理系统</Text>
         </div>
       </Card>
     </div>

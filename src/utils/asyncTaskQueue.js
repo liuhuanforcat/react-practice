@@ -78,3 +78,5 @@ class AsyncTaskQueue {
     });
   }
 }
+
+export default AsyncTaskQueue;

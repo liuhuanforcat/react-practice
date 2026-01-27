@@ -1,267 +1,96 @@
-@primary-color: #00ffff;
-@text-color: rgba(255, 255, 255, 0.85);
-@background-color: #0f1621;
+// 遵循 Ant Design 设计规范：主色 #1890ff、间距 8 的倍数、背景 #f0f2f5
+@login-bg: #f0f2f5;
+@login-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+@text-title: rgba(0, 0, 0, 0.85);
+@text-body: rgba(0, 0, 0, 0.65);
+@text-secondary: rgba(0, 0, 0, 0.45);
+@border-color: #d9d9d9;
 
 .login-container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #0f1621 0%, #1a2332 100%);
-  position: relative;
-  overflow: hidden;
-
-  .particles-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-
-  .tech-decoration {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-
-    .circle {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.3;
-
-      &.circle-1 {
-        width: 300px;
-        height: 300px;
-        background: #ff00ff;
-        top: -100px;
-        left: -100px;
-      }
-
-      &.circle-2 {
-        width: 400px;
-        height: 400px;
-        background: @primary-color;
-        bottom: -150px;
-        right: -100px;
-      }
-    }
-
-    .line {
-      position: absolute;
-      background: linear-gradient(90deg, transparent, rgba(@primary-color, 0.5), transparent);
-      height: 1px;
-      width: 100%;
-
-      &.line-1 {
-        top: 30%;
-        animation: shine 3s infinite;
-      }
-
-      &.line-2 {
-        top: 70%;
-        animation: shine 3s infinite 1.5s;
-      }
-    }
-  }
+  background: @login-bg;
+  // 微妙渐变增加质感（2-3% 色差）
+  background: linear-gradient(180deg, #f2f4f7 0%, @login-bg 50%, #e8eaef 100%);
 }
 
 .login-card {
-  width: 400px;
-  background: rgba(15, 22, 33, 0.8);
-  border: 1px solid rgba(@primary-color, 0.2);
-  box-shadow: 0 0 20px rgba(@primary-color, 0.1);
-  backdrop-filter: blur(10px);
-  z-index: 1;
-  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 2px;
+  box-shadow: @login-card-shadow;
   overflow: hidden;
 
   .ant-card-body {
-    padding: 40px;
+    padding: 32px 40px;
   }
 
-  .card-header {
+  .login-card-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
+  }
 
-    .tech-title {
-      color: white;
-      margin-bottom: 15px;
-      position: relative;
-      display: inline-block;
+  .login-title {
+    margin-bottom: 8px !important;
+    font-size: 20px;
+    font-weight: 600;
+    color: @text-title;
+    line-height: 1.4;
+  }
 
-      .tech-text {
-        position: relative;
-        z-index: 1;
-        text-shadow: 0 0 10px rgba(@primary-color, 0.5);
-      }
-
-      .tech-highlight {
-        color: @primary-color;
-        text-shadow: 0 0 15px @primary-color;
-        margin-left: 10px;
-      }
-    }
-
-    .tech-divider {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, @primary-color, transparent);
-      margin: 0 auto;
-      width: 80%;
-    }
+  .login-subtitle {
+    font-size: 14px;
+    color: @text-secondary;
+    line-height: 1.5715;
   }
 
   .login-form {
-    .tech-input {
-      position: relative;
+    .ant-form-item {
       margin-bottom: 24px;
+    }
 
-      .ant-input {
-        background: transparent;
-        border: none;
-        border-bottom: 1px solid rgba(@primary-color, 0.3);
-        color: black;
-        border-radius: 0;
-        transition: all 0.3s;
-        height: 30px;
-        font-size: 16px;
+    .ant-form-item-label>label {
+      font-size: 14px;
+      color: @text-body;
+      height: auto;
+    }
 
-        &:focus {
-          box-shadow: none;
-          border-bottom-color: @primary-color;
-        }
+    .login-input-icon {
+      color: @text-secondary;
+      font-size: 14px;
+    }
 
-        &::placeholder {
-          color: rgba(255, 255, 255, 0.3);
-        }
-      }
+    .ant-input-affix-wrapper,
+    .ant-input-password,
+    .ant-input {
+      border-radius: 8px;
+    }
 
-      .tech-icon {
-        color: rgba(@primary-color, 0.5);
-      }
+    .login-submit-item {
+      margin-bottom: 0;
+      margin-top: 8px;
+    }
 
-      .input-bottom-line {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: @primary-color;
-        transition: width 0.3s;
-      }
-
-      &.active {
-        .input-bottom-line {
-          width: 100%;
-        }
-
-        .tech-icon {
-          color: @primary-color;
-          text-shadow: 0 0 10px @primary-color;
-        }
-      }
+    .login-submit-btn {
+      height: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     }
   }
 
-  .tech-button {
-    width: 100%;
-    height: 40px;
-    background: transparent;
-    border: 1px solid @primary-color;
-    color: @primary-color;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    margin-top: 10px;
-
-    &:hover {
-      background: rgba(@primary-color, 0.1);
-      box-shadow: 0 0 15px @primary-color;
-      transform: translateY(-2px);
-    }
-
-    .button-border {
-      position: absolute;
-      background: @primary-color;
-      transition: all 0.3s;
-    }
-
-    .button-border-top {
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 1px;
-    }
-
-    .button-border-right {
-      top: -100%;
-      right: 0;
-      width: 1px;
-      height: 100%;
-    }
-
-    .button-border-bottom {
-      bottom: 0;
-      right: -100%;
-      width: 100%;
-      height: 1px;
-    }
-
-    .button-border-left {
-      bottom: -100%;
-      left: 0;
-      width: 1px;
-      height: 100%;
-    }
-
-    &:hover .button-border-top {
-      left: 0;
-    }
-
-    &:hover .button-border-right {
-      top: 0;
-    }
-
-    &:hover .button-border-bottom {
-      right: 0;
-    }
-
-    &:hover .button-border-left {
-      bottom: 0;
-    }
-  }
-
-  .tech-footer {
+  .login-footer {
     text-align: center;
-    margin-top: 20px;
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 12px;
-  }
-}
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #f0f0f0;
 
-@keyframes shine {
-  0% {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-
-  20% {
-    opacity: 0.5;
-  }
-
-  50% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  80% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateX(100%);
+    .ant-typography {
+      font-size: 12px;
+      color: @text-secondary;
+    }
   }
 }
