@@ -13,8 +13,9 @@ import Map from '../pages/map';
 import Simplepeer from '../pages/simPlePeer';
 import RemTest from '../pages/remTest';
 import EventPropagation from '../pages/eventPropagation';
+import TreeSelect from '../pages/treeSelect';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined, BranchesOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -138,6 +139,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '事件传播机制',
           icon: React.createElement(ThunderboltOutlined),
+        },
+      },
+      {
+        path: '/tree-select',
+        element: React.createElement(TreeSelect),
+        meta: {
+          title: '多选树',
+          icon: React.createElement(BranchesOutlined),
         },
       },
     ],
