@@ -15,8 +15,9 @@ import RemTest from '../pages/remTest';
 import EventPropagation from '../pages/eventPropagation';
 import TreeSelect from '../pages/treeSelect';
 import AsyncTaskQueueTest from '../pages/asyncTaskQueue';
+import DynamicVirtualList from '../pages/dynamicVirtualList';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined, BranchesOutlined, OrderedListOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined, BranchesOutlined, OrderedListOutlined, UnorderedListOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -156,6 +157,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '异步任务队列',
           icon: React.createElement(OrderedListOutlined),
+        },
+      },
+      {
+        path: '/dynamic-virtual-list',
+        element: React.createElement(DynamicVirtualList),
+        meta: {
+          title: '动态虚拟列表',
+          icon: React.createElement(UnorderedListOutlined),
         },
       },
     ],
