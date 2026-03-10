@@ -17,7 +17,8 @@ import TreeSelect from '../pages/treeSelect';
 import AsyncTaskQueueTest from '../pages/asyncTaskQueue';
 import DynamicVirtualList from '../pages/dynamicVirtualList';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined, BranchesOutlined, OrderedListOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import CompanyMasterDetail from '../pages/companyMasterDetail';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined, BranchesOutlined, OrderedListOutlined, UnorderedListOutlined, BankOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -165,6 +166,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '动态虚拟列表',
           icon: React.createElement(UnorderedListOutlined),
+        },
+      },
+      {
+        path: '/company-master-detail',
+        element: React.createElement(CompanyMasterDetail),
+        meta: {
+          title: '企业主从详情',
+          icon: React.createElement(BankOutlined),
         },
       },
     ],
