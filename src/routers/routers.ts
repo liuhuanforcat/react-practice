@@ -18,7 +18,8 @@ import AsyncTaskQueueTest from '../pages/asyncTaskQueue';
 import DynamicVirtualList from '../pages/dynamicVirtualList';
 import React from 'react';
 import CompanyMasterDetail from '../pages/companyMasterDetail';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined, BranchesOutlined, OrderedListOutlined, UnorderedListOutlined, BankOutlined } from '@ant-design/icons';
+import InviteMonitor from '../pages/inviteMonitor';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined, BranchesOutlined, OrderedListOutlined, UnorderedListOutlined, BankOutlined, VideoCameraOutlined } from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -174,6 +175,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '企业主从详情',
           icon: React.createElement(BankOutlined),
+        },
+      },
+      {
+        path: '/invite-monitor',
+        element: React.createElement(InviteMonitor),
+        meta: {
+          title: '邀请监控',
+          icon: React.createElement(VideoCameraOutlined),
         },
       },
     ],

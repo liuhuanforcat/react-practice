@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "lanhu-developer-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "lanhu-developer-mcp",
+        "--stdio"
+      ],
+      "env": {
+        "LANHU_TOKEN": ".eJyM0F2KWzEMxfG9-DkXbMmS7GzGyPqYCW3TcCdDH0r3XobQ9y7gwP93fpeVZ3y8l-vz_IxLWTcv11K7s5ioDUCKVN0dRR1pTzTbI33jHA18K9Q53MB7rX3uLjpBdzjwNqa-k1OActAAqspzqzBWMwevFrsFNTZ12NRo1BAH4ZByKesR5w-9x_35L-37z7fbfdl72LejtTkEqh2V2I-e6scUtiM2aJqP3rqVaxFkAJw1qddJ2ACBZohLD8ZOudZqIohj4OBKay0xwUjawxGQNCpXTojRo5NkUrmUxy9febu_xfk4b195JdUcewdJmtHQ29TBtUVupAb-xXmeavE6d8sACM5DJeno1eEYDeSwuZmm1nTXcimfH3G-Bv-F_fM3AAD__xQ9gfw.abPLZw.We5JRc66IqJimS0fVexFOvQD0o0"
+      }
+    },
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer YOUR_GITHUB_PAT"
+      }
+    }
+  }
+}
