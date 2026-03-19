@@ -48,7 +48,13 @@ export async function parseToDSL(
     maxRetries = 2,
   } = config;
 
-  const client = new OpenAI({ baseURL: apiBase, apiKey });
+  // 前端环境下使用 OpenAI SDK，需要显式开启 dangerouslyAllowBrowser
+  // 注意：这会在浏览器中使用 API Key，仅适用于本地调试或已采取其他安全措施的场景。
+  const client = new OpenAI({
+    baseURL: apiBase,
+    apiKey,
+    dangerouslyAllowBrowser: true,
+  });
 
   const messages: ChatMessage[] = [
     { role: "system", content: buildSystemPrompt() },

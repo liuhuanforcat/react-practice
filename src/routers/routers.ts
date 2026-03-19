@@ -19,7 +19,25 @@ import DynamicVirtualList from '../pages/dynamicVirtualList';
 import React from 'react';
 import CompanyMasterDetail from '../pages/companyMasterDetail';
 import InviteMonitor from '../pages/inviteMonitor';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, ThunderboltOutlined, BranchesOutlined, OrderedListOutlined, UnorderedListOutlined, BankOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import DslAgentPage from '../pages/dslAgent';
+import {
+  HomeOutlined,
+  CloudOutlined,
+  FlagOutlined,
+  WomanOutlined,
+  UngroupOutlined,
+  CopyrightOutlined,
+  CompassOutlined,
+  SendOutlined,
+  MobileOutlined,
+  ThunderboltOutlined,
+  BranchesOutlined,
+  OrderedListOutlined,
+  UnorderedListOutlined,
+  BankOutlined,
+  VideoCameraOutlined,
+  ApiOutlined,
+} from '@ant-design/icons';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -55,6 +73,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '首页',
           icon: React.createElement(HomeOutlined),
+        },
+      },
+      {
+        path: '/dsl-agent',
+        element: React.createElement(DslAgentPage),
+        meta: {
+          title: 'DSL 需求生成',
+          icon: React.createElement(ApiOutlined),
         },
       },
       {
