@@ -16,7 +16,7 @@ import EventPropagation from '../pages/eventPropagation';
 import TreeSelect from '../pages/treeSelect';
 import AsyncTaskQueueTest from '../pages/asyncTaskQueue';
 import DynamicVirtualList from '../pages/dynamicVirtualList';
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import CompanyMasterDetail from '../pages/companyMasterDetail';
 import InviteMonitor from '../pages/inviteMonitor';
 import DslAgentPage from '../pages/dslAgent';
@@ -37,7 +37,10 @@ import {
   BankOutlined,
   VideoCameraOutlined,
   ApiOutlined,
+  RocketOutlined,
 } from '@ant-design/icons';
+
+const LazyLoadPage = lazy(() => import('../pages/lazyLoad'));
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -209,6 +212,27 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '邀请监控',
           icon: React.createElement(VideoCameraOutlined),
+        },
+      },
+      {
+        path: '/lazy-load',
+        element: React.createElement(
+          Suspense,
+          {
+            fallback: React.createElement('div', {
+              style: {
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: 300,
+              },
+            }, React.createElement('span', null, '页面加载中...')),
+          },
+          React.createElement(LazyLoadPage)
+        ),
+        meta: {
+          title: '组件懒加载',
+          icon: React.createElement(RocketOutlined),
         },
       },
     ],
