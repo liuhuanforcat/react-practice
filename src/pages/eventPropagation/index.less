@@ -1,0 +1,93 @@
+.event-propagation-demo {
+  padding: 24px;
+
+  .outer-box {
+    padding: 40px;
+    background-color: #f0f0f0;
+    border: 2px dashed #d9d9d9;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #e6f7ff;
+    }
+  }
+
+  .middle-box {
+    padding: 30px;
+    background-color: #e6f7ff;
+    border: 2px dashed #91d5ff;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #bae7ff;
+    }
+  }
+
+  .inner-box {
+    padding: 20px;
+    background-color: #1890ff;
+    color: white;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+
+    &:hover {
+      background-color: #40a9ff;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .log-container {
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #fafafa;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+  }
+
+  .log-item {
+    padding: 4px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .todo-item {
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #e6f7ff !important;
+    }
+
+    .delete-btn {
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: #ff7875 !important;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}
+

@@ -1,0 +1,319 @@
+.dv-page {
+  padding: 20px;
+  background: #f5f7fa;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+}
+
+.dv-header {
+  text-align: center;
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .dv-subtitle {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+  }
+}
+
+// ==================== 工具栏 ====================
+.dv-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.dv-stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dv-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+
+  .dv-stat-label {
+    font-size: 11px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .dv-stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    font-variant-numeric: tabular-nums;
+
+    &.accent {
+      color: #4facfe;
+    }
+  }
+}
+
+.dv-jump {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  input {
+    width: 140px;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #4facfe;
+      box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.15);
+    }
+  }
+
+  button {
+    height: 32px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: #fff;
+    transition: opacity 0.2s, transform 0.1s;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+// ==================== 虚拟列表容器 ====================
+.dv-container {
+  overflow-y: auto;
+  border-radius: 10px;
+  background: #f9fafb;
+  border: 1px solid #e8ecf1;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(79, 172, 254, 0.35);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(79, 172, 254, 0.55);
+    }
+  }
+}
+
+// ==================== 列表项 ====================
+.dv-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 18px;
+  margin: 8px 10px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s, transform 0.2s;
+  box-sizing: border-box;
+
+  &:hover {
+    box-shadow: 0 4px 14px rgba(79, 172, 254, 0.18);
+    transform: translateY(-1px);
+  }
+}
+
+.dv-item-avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dv-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.dv-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.dv-item-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.dv-item-likes {
+  font-size: 12px;
+  color: #fa709a;
+  font-weight: 600;
+
+  &::before {
+    content: '\2665\0020';
+  }
+}
+
+.dv-item-content {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  word-break: break-all;
+}
+
+.dv-item-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dv-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #4facfe;
+  background: rgba(79, 172, 254, 0.08);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  border-radius: 4px;
+}
+
+// ==================== 原理说明 ====================
+.dv-principles {
+  margin-top: 24px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 20px;
+  }
+}
+
+.dv-principle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.dv-principle {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  background: #f8f9fb;
+  border-radius: 8px;
+  transition: background 0.2s, transform 0.2s;
+
+  &:hover {
+    background: #eef4ff;
+    transform: translateY(-2px);
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 6px;
+  }
+
+  p {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+.dv-principle-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// ==================== 响应式 ====================
+@media screen and (max-width: 768px) {
+  .dv-page {
+    padding: 12px;
+  }
+
+  .dv-header h1 {
+    font-size: 22px;
+  }
+
+  .dv-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dv-jump {
+    width: 100%;
+    flex-wrap: wrap;
+
+    input {
+      flex: 1;
+      min-width: 100px;
+    }
+  }
+
+  .dv-principle-grid {
+    grid-template-columns: 1fr;
+  }
+}

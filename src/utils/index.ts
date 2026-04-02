@@ -30,3 +30,30 @@ export const timeBasedUUID = () => {
   const randomPart = Math.random().toString(16).substring(2, 10);
   return `${timePart}${randomPart}`;
 }
+
+export const asyncTaskQueueAction = (max = 3) => {
+
+  let queue: any = [];
+  let running = 0;
+
+  const addTask = (tasks: (() => Promise<void>)[]) => {
+    for (let i = 0; i < tasks.length; i++) {
+      queue.push(tasks[i]);
+      run();
+    }
+  }
+
+  const run = () => {
+    if (running >= max) {
+      return
+    }
+    const task = queue.shift();
+    running++;
+    task().finally(() => {
+      running--;
+      run();
+    });
+  }
+  return { addTask }
+}
+

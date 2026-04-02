@@ -14,7 +14,8 @@ import Simplepeer from '../pages/simPlePeer';
 import RemTest from '../pages/remTest';
 import SliderCaptchaPage from '../pages/sliderCaptcha';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, SafetyOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, SafetyOutlined, ApiOutlined } from '@ant-design/icons';
+import DslAgentPage from '../pages/dslAgent';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -50,6 +51,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '首页',
           icon: React.createElement(HomeOutlined),
+        },
+      },
+      {
+        path: '/dsl-agent',
+        element: React.createElement(DslAgentPage),
+        meta: {
+          title: 'DSL 需求生成',
+          icon: React.createElement(ApiOutlined),
         },
       },
       {
