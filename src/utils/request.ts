@@ -5,7 +5,7 @@
  */
 import axios from "axios";
 const instance = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: localStorage.getItem('baseURL') || 'http://localhost:3000',
   timeout: 15000,
   // 允许服务端发送cookie
   withCredentials: true

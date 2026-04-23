@@ -1,24 +1,35 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Card, Typography, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Card, Typography, message, Select } from 'antd';
+import { UserOutlined, LockOutlined, GlobalOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 import './index.less';
 
 const { Title, Text } = Typography;
 
+const ENV_OPTIONS = [
+  { label: '开发环境', value: 'dev', url: 'http://localhost:3000' },
+  { label: '测试环境', value: 'test', url: 'http://test-api.example.com' },
+  { label: '生产环境', value: 'prod', url: 'http://api.example.com' },
+];
+
 const LoginPage: React.FC = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const onFinish = (values: { username: string; password: string }) => {
+  const onFinish = (values: { username: string; password: string; env: string }) => {
     setLoading(true);
+    const envConfig = ENV_OPTIONS.find(e => e.value === values.env);
+    if (envConfig) {
+      localStorage.setItem('baseURL', envConfig.url);
+      localStorage.setItem('env', values.env);
+    }
     // 模拟登录请求
     setTimeout(() => {
       console.log('登录参数:', values);
       localStorage.setItem('token', 'your_token_here');
-      message.success('登录成功');
+      message.success(`登录成功（${envConfig?.label ?? ''}）`);
       setLoading(false);
       navigate('/home');
     }, 400);
@@ -44,6 +55,19 @@ const LoginPage: React.FC = () => {
           className="login-form"
           requiredMark={false}
         >
+          <Form.Item
+            name="env"
+            label="环境"
+            initialValue="dev"
+            rules={[{ required: true, message: '请选择环境' }]}
+          >
+            <Select
+              size="large"
+              suffixIcon={<GlobalOutlined className="login-input-icon" />}
+              options={ENV_OPTIONS.map(({ label, value }) => ({ label, value }))}
+            />
+          </Form.Item>
+
           <Form.Item
             name="username"
             label="用户名"

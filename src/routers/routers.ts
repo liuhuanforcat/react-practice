@@ -14,8 +14,14 @@ import Simplepeer from '../pages/simPlePeer';
 import RemTest from '../pages/remTest';
 import SliderCaptchaPage from '../pages/sliderCaptcha';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, SafetyOutlined, ApiOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, SafetyOutlined, ApiOutlined, BookOutlined, ThunderboltOutlined, ClusterOutlined, DatabaseOutlined, MessageOutlined, ConsoleSqlOutlined } from '@ant-design/icons';
 import DslAgentPage from '../pages/dslAgent';
+import JavaBasicsPage from '../pages/javaBasics';
+import SpringBootPage from '../pages/springBoot';
+import SpringCloudAlibabaPage from '../pages/springCloudAlibaba';
+import RedisInterviewPage from '../pages/redisInterview';
+import KafkaInterviewPage from '../pages/kafkaInterview';
+import MySQLInterviewPage from '../pages/mysqlInterview';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -147,6 +153,54 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: '滑块验证码',
           icon: React.createElement(SafetyOutlined),
+        },
+      },
+      {
+        path: 'java-basics',
+        element: React.createElement(JavaBasicsPage),
+        meta: {
+          title: 'Java 八股文',
+          icon: React.createElement(BookOutlined),
+        },
+      },
+      {
+        path: 'spring-boot',
+        element: React.createElement(SpringBootPage),
+        meta: {
+          title: 'Spring Boot',
+          icon: React.createElement(ThunderboltOutlined),
+        },
+      },
+      {
+        path: 'spring-cloud-alibaba',
+        element: React.createElement(SpringCloudAlibabaPage),
+        meta: {
+          title: 'Spring Cloud Alibaba',
+          icon: React.createElement(ClusterOutlined),
+        },
+      },
+      {
+        path: 'redis-interview',
+        element: React.createElement(RedisInterviewPage),
+        meta: {
+          title: 'Redis 面试题',
+          icon: React.createElement(DatabaseOutlined),
+        },
+      },
+      {
+        path: 'kafka-interview',
+        element: React.createElement(KafkaInterviewPage),
+        meta: {
+          title: 'Kafka 面试题',
+          icon: React.createElement(MessageOutlined),
+        },
+      },
+      {
+        path: 'mysql-interview',
+        element: React.createElement(MySQLInterviewPage),
+        meta: {
+          title: 'MySQL 面试题',
+          icon: React.createElement(ConsoleSqlOutlined),
         },
       },
     ],
