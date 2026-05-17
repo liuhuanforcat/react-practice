@@ -14,7 +14,7 @@ import Simplepeer from '../pages/simPlePeer';
 import RemTest from '../pages/remTest';
 import SliderCaptchaPage from '../pages/sliderCaptcha';
 import React from 'react';
-import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, SafetyOutlined, ApiOutlined, BookOutlined, ThunderboltOutlined, ClusterOutlined, DatabaseOutlined, MessageOutlined, ConsoleSqlOutlined } from '@ant-design/icons';
+import { HomeOutlined, CloudOutlined, FlagOutlined, WomanOutlined, UngroupOutlined, CopyrightOutlined, CompassOutlined, SendOutlined, MobileOutlined, SafetyOutlined, ApiOutlined, BookOutlined, ThunderboltOutlined, ClusterOutlined, DatabaseOutlined, MessageOutlined, ConsoleSqlOutlined, PictureOutlined } from '@ant-design/icons';
 import DslAgentPage from '../pages/dslAgent';
 import JavaBasicsPage from '../pages/javaBasics';
 import SpringBootPage from '../pages/springBoot';
@@ -22,6 +22,7 @@ import SpringCloudAlibabaPage from '../pages/springCloudAlibaba';
 import RedisInterviewPage from '../pages/redisInterview';
 import KafkaInterviewPage from '../pages/kafkaInterview';
 import MySQLInterviewPage from '../pages/mysqlInterview';
+import LazyImagePage from '../pages/lazyImage';
 
 export type CustomRouteObject = RouteObject & {
   meta?: {
@@ -201,6 +202,14 @@ const routes: CustomRouteObject[] = [
         meta: {
           title: 'MySQL 面试题',
           icon: React.createElement(ConsoleSqlOutlined),
+        },
+      },
+      {
+        path: 'lazy-image',
+        element: React.createElement(LazyImagePage),
+        meta: {
+          title: '图片懒加载',
+          icon: React.createElement(PictureOutlined),
         },
       },
     ],
