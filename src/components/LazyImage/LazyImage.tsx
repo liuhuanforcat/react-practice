@@ -26,20 +26,20 @@ export interface LazyImageProps {
 type ImageStatus = 'idle' | 'loading' | 'loaded' | 'error';
 
 const LazyImage: React.FC<LazyImageProps> = ({
-  src,
-  thumbnail,
-  alt,
-  width,
-  height,
-  className = '',
-  style,
-  rootMargin = '200px',
-  threshold = 0.01,
-  loadingComponent,
-  errorComponent,
-  onClick,
-  onLoad,
-  onError,
+  src,            // 完整图片地址
+  thumbnail,      // 低分辨率缩略图，不传则不启用 blur-up
+  alt,            // 图片描述（无障碍）
+  width,          // 容器宽度
+  height,         // 容器高度
+  className = '', // 外层自定义 class
+  style,          // 外层自定义样式
+  rootMargin = '200px', // IntersectionObserver 预加载距离
+  threshold = 0.01,     // 可见比例阈值，1% 可见即触发
+  loadingComponent,     // 自定义加载占位，默认骨架屏 shimmer
+  errorComponent,       // 自定义错误占位，默认显示重试提示
+  onClick,        // 点击回调，自动添加 cursor: pointer
+  onLoad,         // 图片加载成功回调
+  onError,        // 图片加载失败回调
 }) => {
   const [status, setStatus] = useState<ImageStatus>('idle');
   const [isInView, setIsInView] = useState(false);
